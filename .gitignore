@@ -2,7 +2,7 @@
 **/node_modules/
 
 # Ignore .env files (for secrets)
-**/.env
+# **/.env
 
 # Ignore log files
 *.log
