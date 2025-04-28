@@ -20,12 +20,39 @@ import axios from "../../api/axiosConfig";
 import { useTranslation } from "react-i18next";
 import { FaChevronLeft, FaChevronRight, FaTimes } from "react-icons/fa";
 import { MoonIcon, TimerIcon } from "lucide-react";
+import {toast} from 'react-hot-toast'
+import SliderSlick from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import PageLoader from "../../components/Loader";
+import TourCard from "../../components/tour-card";
+
+const baseURL = import.meta.env.VITE_API_BASE_URL;
 
 const blinkVariants = {
   initial: { opacity: 0 },
   animate: { opacity: 1 },
   exit: { opacity: 0 },
 };
+
+const PrevArrow = ({ onClick }) => (
+  <button
+    onClick={onClick}
+    className="absolute left-0 cursor-pointer top-1/2 transform -translate-y-1/2 z-10 bg-white shadow-md w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-100"
+  >
+    <FaChevronLeft strokeWidth={0.7} />
+  </button>
+);
+
+const NextArrow = ({ onClick }) => (
+  <button
+    onClick={onClick}
+    className="absolute right-0 cursor-pointer top-1/2 transform -translate-y-1/2 z-10 bg-white shadow-md w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-100"
+  >
+    <FaChevronRight strokeWidth={0.7} />
+  </button>
+);
+
 
 const getAmenityIcon = (key) => {
   switch (key) {
@@ -63,8 +90,10 @@ const getAmenityLabel = (key) => {
 
 const Tour = () => {
   const { slug } = useParams();
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [tour, setTour] = useState(null);
+  const [tours, setTours] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [index, setIndex] = useState(0);
   const [isBookingVisible, setIsBookingVisible] = useState(false);
   const [bookingLoading, setBookingLoading] = useState(false);
@@ -93,12 +122,20 @@ const Tour = () => {
 
 
   useEffect(() => {
-    const fetchTour = async () => {
-      const res = await axios.get(`/tours/slug/${slug}`);
-      setTour(res.data);
-      console.log(res.data)
+    const fetchData = async () => {
+      try {
+        const [tourRes, toursRes] = await Promise.all([
+          axios.get(`/tours/slug/${slug}`),
+          axios.get(`/tours`)
+        ]);
+        setTour(tourRes.data);
+        setTours(toursRes.data); // Предполагаем, что у тебя есть стейт setToursList
+      } finally {
+        setTimeout(() => setIsLoading(false), 600); // для плавности загрузки
+      }
     };
-    fetchTour();
+  
+    fetchData();
   }, [slug]);
 
   const prev = () => setIndex((prev) => (prev - 1 + tour.images.length) % tour.images.length);
@@ -109,10 +146,37 @@ const Tour = () => {
     return () => clearInterval(interval);
   }, [tour, index]);
 
-  if (!tour) return <div className="p-6 text-center">Загрузка...</div>;
+  if (!tour) return  <PageLoader isLoading={isLoading} />;
+
+  const sliderSettings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    prevArrow: <PrevArrow />,
+    nextArrow: <NextArrow />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
 
   return (
     <div className="bg-gray-50 min-h-screen p-4">
+      
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-2">
         <div className="text-gray-500 text-xs flex items-center gap-1 mb-1 subpixel-antialiased">
@@ -137,9 +201,9 @@ const Tour = () => {
   </div>
 )}
 <div className="w-px h-3 bg-black/10" />
-<p className="text-gray-500 text-xs flex items-center gap-1.5">
+{/* <p className="text-gray-500 text-xs flex items-center gap-1.5">
   <img src="/hotel.svg" alt="" />
-  {tour.hotel?.name[i18n.language]}</p>
+  {tour.hotel?.name[i18n.language]}</p> */}
 
           </div>
 
@@ -162,16 +226,16 @@ const Tour = () => {
         transition={{ duration: 0.2 }}
         className="absolute right-0 left-0 mt-2 w-60 bg-white rounded-2xl p-2 shadow-xl z-50"
       >
-        <div
-          onClick={() => {
-            navigator.clipboard.writeText(currentUrl);
-            alert("Ссылка скопирована!");
-            setShowShareMenu(false);
-          }}
-          className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 rounded cursor-pointer text-sm text-gray-800"
-        >
-          <BsClipboard /> Скопировать ссылку
-        </div>
+    <div
+      onClick={() => {
+        navigator.clipboard.writeText(currentUrl);
+        toast.success(t("linkCopied"));
+        setShowShareMenu(false);
+      }}
+      className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 rounded cursor-pointer text-sm text-gray-800"
+    >
+      <BsClipboard /> {t("copyLink")}
+    </div>
 
         <a
           href={`https://wa.me/?text=${encodeURIComponent(currentUrl)}`}
@@ -228,7 +292,7 @@ const Tour = () => {
               <AnimatePresence mode="wait">
                 <motion.img
                   key={tour.images[index]}
-                  src={`http://localhost:5000/uploads/${tour.images[index]}`}
+                  src={`${baseURL}/uploads/${tour.images[index]}`}
                   alt={`Slide ${index}`}
                   variants={blinkVariants}
                   initial="initial"
@@ -246,76 +310,122 @@ const Tour = () => {
               </button>
             </div>
 
-            <div className="mt-4 flex gap-3 overflow-x-auto">
-              {tour.images.map((img, i) => (
-                <div
-                  key={i}
-                  className={`relative min-w-[90px] h-[65px] rounded-md overflow-hidden cursor-pointer border-2 ${i === index ? "border-[#DFAF68]" : "border-transparent"}`}
-                  onClick={() => setIndex(i)}
-                >
-                  <img
-                    src={`http://localhost:5000/uploads/${img}`}
-                    alt={`thumb-${i}`}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-              ))}
-            </div>
-            <h3 className="mt-4 font-semibold text-[16px]">Короткое описание тура:</h3>
-            <div className="text-gray-700 text-sm mt-2">{tour.shortDescription[i18n.language]}</div>
+            <div style={{ marginTop: "16px" }} className="flex gap-3 overflow-x-auto">
+  {tour.images.map((img, i) => (
+    <div
+      key={i}
+      className={`relative min-w-[90px] h-[65px] rounded-md overflow-hidden cursor-pointer border-2 ${
+        i === index ? "border-[#DFAF68]" : "border-transparent"
+      }`}
+      onClick={() => setIndex(i)}
+    >
+      <img
+        src={`${baseURL}/uploads/${img}`}
+        alt={`thumb-${i}`}
+        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+      />
+    </div>
+  ))}
+</div>
 
-            <div className="mt-6">
+<h3 style={{ marginTop: "16px" }} className="font-semibold text-[16px]">
+  {t("shortDescriptionTitle")}:
+</h3>
 
-              {tour.extras?.[i18n.language] && (
-                <>
-                  <h3 className="mt-4 text-[16px] font-semibold">Дополнительно:</h3>
-                  <p className="text-sm text-gray-700">{tour.extras[i18n.language]}</p>
-                </>
-              )}
-            </div>
+<div style={{ marginTop: "8px" }} className="text-gray-700 text-sm">
+  {tour.shortDescription[i18n.language]}
+</div>
+
+<div style={{ marginTop: "24px" }}>
+  {tour.extras?.[i18n.language] && (
+    <>
+      <h3 style={{ marginTop: "16px" }} className="text-[16px] font-semibold">
+        {t("extrasTitle")}:
+      </h3>
+      <p style={{ marginTop: "8px" }} className="text-sm text-gray-700">
+        {tour.extras[i18n.language]}
+      </p>
+    </>
+  )}
+</div>
+
           </div>
         </div>
 
 
-        <div className="bg-white max-h-max sticky top-10 p-4 rounded-xl">
-        <h2 className="text-xl font-semibold mb-4">Бронирование тура</h2>
+        <div className="bg-white max-h-max sticky top-14 p-4 rounded-xl">
+      <h2 className="text-xl font-semibold mb-4">{t("bookingTourTitle")}</h2>
 
-        <div className="flex gap-2 items-center">
-            <MoonIcon strokeWidth={1.4}/> <div className="flex flex-col text-gray-600">
-              <span className="text-[12px]">Ночей</span>
-              <p className=" text-[14px]">{tour.nights}</p>
-            </div>
-          </div>
-          <div className="flex gap-2 items-center">
-            <TimerIcon strokeWidth={1.4} /> <div className="flex flex-col text-gray-600">
-              <span className="text-[12px]">Продолжительность</span>
-              <p className=" text-[14px]">{tour.days} дней</p>
-            </div>
-          </div>
-          <div className="text-[20px] text-[#DFAF68] font-semibold">от {tour.price?.toLocaleString()} сум</div>
-          
-            <button onClick={() => setIsBookingVisible(true)}
-                              className="bg-[#DFAF68] w-full mt-3 cursor-pointer text-white px-6 py-3 rounded-xl text-sm hover:bg-[#b08c52] transition"
-                            >
-                             Забронировать
-                            </button>
-
-                            <div className="bg-[#A88856]/10 mt-4 text-[#A88856] flex items-center space-x-3 px-4 py-2 rounded-xl w-full mb-4 text-sm">
-            <span className="flex gap-3 font-medium items-center"> 
-              <svg width="39" height="38" viewBox="0 0 39 38" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M30.9287 20.9799V14.9729C30.9287 12.0521 29.7698 9.2509 27.7069 7.18557C25.644 5.12025 22.8461 3.95996 19.9287 3.95996C17.0113 3.95996 14.2134 5.12025 12.1505 7.18557C10.0876 9.2509 8.92871 12.0521 8.92871 14.9729V20.9799C8.92871 23.9007 10.0876 26.7019 12.1505 28.7673C14.2134 30.8326 17.0113 31.9929 19.9287 31.9929C22.8461 31.9929 25.644 30.8326 27.7069 28.7673C29.7698 26.7019 30.9287 23.9007 30.9287 20.9799ZM16.2187 24.2738C16.3117 24.18 16.4223 24.1055 16.5441 24.0547C16.666 24.0038 16.7967 23.9777 16.9287 23.9777C17.0607 23.9777 17.1914 24.0038 17.3133 24.0547C17.4351 24.1055 17.5457 24.18 17.6387 24.2738C17.9389 24.5759 18.2957 24.8156 18.6887 24.9792C19.0817 25.1428 19.5031 25.227 19.9287 25.227C20.3543 25.227 20.7757 25.1428 21.1687 24.9792C21.5617 24.8156 21.9186 24.5759 22.2187 24.2738C22.407 24.0853 22.6624 23.9794 22.9287 23.9794C23.195 23.9794 23.4504 24.0853 23.6387 24.2738C23.827 24.4623 23.9328 24.718 23.9328 24.9846C23.9328 25.2513 23.827 25.5069 23.6387 25.6955C20.1687 29.1295 14.5787 25.9157 16.2187 24.2738Z" fill="#A88856"></path><path d="M35.9287 12.9706H34.7887C34.2947 9.37617 32.5176 6.0823 29.786 3.69795C27.0543 1.3136 23.5528 0 19.9287 0C16.3047 0 12.8031 1.3136 10.0715 3.69795C7.33979 6.0823 5.5627 9.37617 5.06871 12.9706H3.92871C3.13306 12.9706 2.37 13.2871 1.80739 13.8503C1.24478 14.4136 0.928711 15.1776 0.928711 15.9741V21.9812C0.928711 22.7778 1.24478 23.5417 1.80739 24.105C2.37 24.6683 3.13306 24.9847 3.92871 24.9847H6.92871C7.19393 24.9847 7.44828 24.8792 7.63582 24.6915C7.82335 24.5037 7.92871 24.2491 7.92871 23.9835V13.9718C7.9318 13.7318 7.84868 13.4987 7.6945 13.315C7.54032 13.1312 7.32534 13.009 7.08871 12.9706C7.57286 9.90973 9.13203 7.12224 11.4858 5.10955C13.8395 3.09685 16.8333 1.99106 19.9287 1.99106C23.0241 1.99106 26.0179 3.09685 28.3717 5.10955C30.7254 7.12224 32.2846 9.90973 32.7687 12.9706C32.5321 13.009 32.3171 13.1312 32.1629 13.315C32.0087 13.4987 31.9256 13.7318 31.9287 13.9718V23.9835C31.9287 24.2491 32.0341 24.5037 32.2216 24.6915C32.4091 24.8792 32.6635 24.9847 32.9287 24.9847C32.9295 27.5588 32.0297 30.0518 30.3855 32.0307C28.7414 34.0096 26.4569 35.3494 23.9287 35.8174C23.9728 35.4632 23.9409 35.1036 23.8353 34.7626C23.7296 34.4217 23.5527 34.1072 23.3161 33.84C23.0796 33.5729 22.7889 33.3593 22.4635 33.2134C22.138 33.0676 21.7853 32.9928 21.4287 32.9941H19.4287C18.7657 32.9941 18.1298 33.2578 17.6609 33.7272C17.1921 34.1966 16.9287 34.8332 16.9287 35.4971C16.9287 36.1609 17.1921 36.7975 17.6609 37.2669C18.1298 37.7363 18.7657 38 19.4287 38H21.9287C25.3765 38 28.6831 36.6287 31.1211 34.1879C33.5591 31.7471 34.9287 28.4366 34.9287 24.9847H35.9287C36.7244 24.9847 37.4874 24.6683 38.05 24.105C38.6126 23.5417 38.9287 22.7778 38.9287 21.9812V15.9741C38.9287 15.1776 38.6126 14.4136 38.05 13.8503C37.4874 13.2871 36.7244 12.9706 35.9287 12.9706Z" fill="#A88856"></path></svg>
-              <div className="flex flex-col">
-              <span className="text-[10px]">Горячая линия для туристов 24/7, по поводу брони</span>
-              <p className=" text-[16px]"> +7 (495) 502 10 11</p>
-              <button 
-                              className="bg-[#DFAF68] max-w-max  mt-3 cursor-pointer text-white px-3 py-2 rounded-md text-xs hover:bg-[#b08c52] transition"
-                            >
-                             Позвонить
-                            </button>
-            </div>
-               </span>
-          </div>
+      <div style={{ marginTop: 0 }} className="flex gap-2 items-center">
+      <div className="tours-info__ico">
+        <MoonIcon color="#A88856" strokeWidth={1.4} />
+        </div>
+        <div className="flex flex-col text-gray-600">
+          <span className="text-[12px]">{t("nights")}</span>
+          <p className="text-[14px]">{tour.nights}</p>
         </div>
       </div>
+
+      <div style={{ marginTop: '16px' }} className="flex gap-2 items-center">
+      <div className="tours-info__ico">
+        <TimerIcon color="#A88856" strokeWidth={1.4} />
+        </div>
+        <div className="flex flex-col text-gray-600">
+          <span className="text-[12px]">{t("duration")}</span>
+          <p className="text-[14px]">{tour.days} {t("days") || "дней"}</p>
+        </div>
+      </div>
+      <div style={{ marginTop: '16px' }} className="flex gap-2 items-center">
+      <div className="tours-info__ico">
+        <img className="h-6" src="/hotel.svg" alt="" />
+        </div>
+        <div className="flex flex-col text-gray-600">
+          <span className="text-[12px]">{t("dropdown.hotels")}</span>
+          <p className="text-[14px]">{tour.hotel?.name[i18n.language]}</p>
+        </div>
+      </div>
+
+      <div style={{ marginTop: '16px' }} className="text-[20px] text-[#DFAF68] font-semibold">
+        от {tour.price?.toLocaleString()} <span className="text-sm font-normal">{t('pricePerPerson')} $</span>
+      </div>
+
+      <button
+        onClick={() => setIsBookingVisible(true)}
+        style={{ marginTop: '16px' }}
+        className="bg-[#DFAF68] w-full inline-block cursor-pointer text-white px-6 py-3 rounded-xl text-sm hover:bg-[#b08c52] transition"
+      >
+        {t("bookButton")}
+      </button>
+
+      <div
+        style={{ marginTop: '16px', marginBottom: '16px' }}
+        className="bg-[#A88856]/10 text-[#A88856] flex items-center space-x-3 px-4 py-2 rounded-xl w-full text-sm"
+      >
+        <span className="flex gap-3 font-medium items-center">
+              <svg width="39" height="38" viewBox="0 0 39 38" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M30.9287 20.9799V14.9729C30.9287 12.0521 29.7698 9.2509 27.7069 7.18557C25.644 5.12025 22.8461 3.95996 19.9287 3.95996C17.0113 3.95996 14.2134 5.12025 12.1505 7.18557C10.0876 9.2509 8.92871 12.0521 8.92871 14.9729V20.9799C8.92871 23.9007 10.0876 26.7019 12.1505 28.7673C14.2134 30.8326 17.0113 31.9929 19.9287 31.9929C22.8461 31.9929 25.644 30.8326 27.7069 28.7673C29.7698 26.7019 30.9287 23.9007 30.9287 20.9799ZM16.2187 24.2738C16.3117 24.18 16.4223 24.1055 16.5441 24.0547C16.666 24.0038 16.7967 23.9777 16.9287 23.9777C17.0607 23.9777 17.1914 24.0038 17.3133 24.0547C17.4351 24.1055 17.5457 24.18 17.6387 24.2738C17.9389 24.5759 18.2957 24.8156 18.6887 24.9792C19.0817 25.1428 19.5031 25.227 19.9287 25.227C20.3543 25.227 20.7757 25.1428 21.1687 24.9792C21.5617 24.8156 21.9186 24.5759 22.2187 24.2738C22.407 24.0853 22.6624 23.9794 22.9287 23.9794C23.195 23.9794 23.4504 24.0853 23.6387 24.2738C23.827 24.4623 23.9328 24.718 23.9328 24.9846C23.9328 25.2513 23.827 25.5069 23.6387 25.6955C20.1687 29.1295 14.5787 25.9157 16.2187 24.2738Z" fill="#A88856"></path><path d="M35.9287 12.9706H34.7887C34.2947 9.37617 32.5176 6.0823 29.786 3.69795C27.0543 1.3136 23.5528 0 19.9287 0C16.3047 0 12.8031 1.3136 10.0715 3.69795C7.33979 6.0823 5.5627 9.37617 5.06871 12.9706H3.92871C3.13306 12.9706 2.37 13.2871 1.80739 13.8503C1.24478 14.4136 0.928711 15.1776 0.928711 15.9741V21.9812C0.928711 22.7778 1.24478 23.5417 1.80739 24.105C2.37 24.6683 3.13306 24.9847 3.92871 24.9847H6.92871C7.19393 24.9847 7.44828 24.8792 7.63582 24.6915C7.82335 24.5037 7.92871 24.2491 7.92871 23.9835V13.9718C7.9318 13.7318 7.84868 13.4987 7.6945 13.315C7.54032 13.1312 7.32534 13.009 7.08871 12.9706C7.57286 9.90973 9.13203 7.12224 11.4858 5.10955C13.8395 3.09685 16.8333 1.99106 19.9287 1.99106C23.0241 1.99106 26.0179 3.09685 28.3717 5.10955C30.7254 7.12224 32.2846 9.90973 32.7687 12.9706C32.5321 13.009 32.3171 13.1312 32.1629 13.315C32.0087 13.4987 31.9256 13.7318 31.9287 13.9718V23.9835C31.9287 24.2491 32.0341 24.5037 32.2216 24.6915C32.4091 24.8792 32.6635 24.9847 32.9287 24.9847C32.9295 27.5588 32.0297 30.0518 30.3855 32.0307C28.7414 34.0096 26.4569 35.3494 23.9287 35.8174C23.9728 35.4632 23.9409 35.1036 23.8353 34.7626C23.7296 34.4217 23.5527 34.1072 23.3161 33.84C23.0796 33.5729 22.7889 33.3593 22.4635 33.2134C22.138 33.0676 21.7853 32.9928 21.4287 32.9941H19.4287C18.7657 32.9941 18.1298 33.2578 17.6609 33.7272C17.1921 34.1966 16.9287 34.8332 16.9287 35.4971C16.9287 36.1609 17.1921 36.7975 17.6609 37.2669C18.1298 37.7363 18.7657 38 19.4287 38H21.9287C25.3765 38 28.6831 36.6287 31.1211 34.1879C33.5591 31.7471 34.9287 28.4366 34.9287 24.9847H35.9287C36.7244 24.9847 37.4874 24.6683 38.05 24.105C38.6126 23.5417 38.9287 22.7778 38.9287 21.9812V15.9741C38.9287 15.1776 38.6126 14.4136 38.05 13.8503C37.4874 13.2871 36.7244 12.9706 35.9287 12.9706Z" fill="#A88856"></path></svg>
+              <div className="flex flex-col">
+            <span className="text-[10px]">{t("hotlineText")}</span>
+            <p className="text-[16px]">+7 (495) 502 10 11</p>
+            <button
+              className="bg-[#DFAF68] max-w-max mt-3 cursor-pointer text-white px-3 py-2 rounded-md text-xs hover:bg-[#b08c52] transition"
+            >
+              {t("callButton")}
+            </button>
+          </div>
+        </span>
+      </div>
+    </div>
+</div>
+
+<div className="max-w-screen-2xl mt-12 mx-auto px-4">
+          <SliderSlick className="relative" {...sliderSettings}>
+            {tours.slice(0, 15).map((tour) => (
+              <div key={tour._id} className="px-2 mx-auto">
+                <TourCard tour={tour} />
+              </div>
+            ))}
+          </SliderSlick>
+        </div>
 
       <AnimatePresence>
   {isBookingVisible && (

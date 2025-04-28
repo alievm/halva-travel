@@ -90,7 +90,7 @@ const Tours = () => {
         : {}
     );
   
-    const baseURL = import.meta.env.VITE_DIRECTORY_URL || 'http://localhost:5000';
+    const baseURL = import.meta.env.VITE_API_BASE_URL;
 
     const fileListFromServer = tour?.images?.map((img, index) => {
       const normalizedPath = img.replace(/^\/?uploads\//, '').replace(/^\/+/, '');
@@ -224,10 +224,10 @@ const Tours = () => {
       title: 'Действия',
       key: 'actions',
       render: (_, record) => (
-        <>
-          <Button type="primary" onClick={() => showModal(record)}>Редактировать</Button>
-          <Button type="link" danger onClick={() => handleDelete(record._id)}>Удалить</Button>
-        </>
+        <div className='flex items-center gap-3'>
+          <Button size="small" type="primary" ghost onClick={() => showModal(record)}>Редактировать</Button>
+          <Button size="small" type="primary" danger onClick={() => handleDelete(record._id)}>Удалить</Button>
+        </div>
       )
     }
   ];

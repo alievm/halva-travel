@@ -31,6 +31,10 @@ app.use('/api/tours', require('./routes/tourRoutes'));
 app.use('/api/news', require('./routes/newsRoutes'));
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/bookings', require('./routes/bookingRoutes'));
+app.use('/api/banners', require('./routes/bannerRoutes'));
+app.use('/api/contact', require('./routes/contactRoutes'));
+app.use('/api/promotions', require('./routes/promotionRoutes'));
+app.use('/api/faqs', require('./routes/faqRoutes'));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const PORT = process.env.PORT || 5000;

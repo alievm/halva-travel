@@ -28,7 +28,7 @@ const CreateNews = () => {
         content_en: news.content.en,
         content_uz: news.content.uz,
       });
-      setFileList(news.image ? [{ url: `${import.meta.env.VITE_DIRECTORY_URL}/uploads/${news.image}`, name: news.image, uid: '-1' }] : []);
+      setFileList(news.image ? [{ url: `${import.meta.env.VITE_API_BASE_URL}/uploads/${news.image}`, name: news.image, uid: '-1' }] : []);
     } else {
       form.resetFields();
       setFileList([]);

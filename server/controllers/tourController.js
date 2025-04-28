@@ -7,7 +7,7 @@ exports.createTour = async (req, res) => {
     const imagePaths = req.files?.map(file => `tours/${file.filename}`) || [];
 
     const parsedFields = {};
-    const jsonFields = ['title', 'route', 'shortDescription', 'includes', 'extras'];
+    const jsonFields = ['title', 'route', 'shortDescription', 'includes', 'extras', 'discounts']; // 👈 добавил discounts
     jsonFields.forEach(field => {
       if (req.body[field]) {
         try {
@@ -34,12 +34,106 @@ exports.createTour = async (req, res) => {
 
 exports.getTours = async (req, res) => {
   try {
-    const tours = await Tour.find().populate('region hotel');
+    const {
+      region,
+      hotel,
+      isActive,
+      minPrice,
+      maxPrice,
+      minDays,
+      maxDays,
+      minNights,
+      maxNights,
+      includes,
+      extras,
+      search,
+      titleLang = 'en',
+      weather, // если добавишь в модель
+      createdAfter,
+      createdBefore,
+      updatedAfter,
+      updatedBefore
+    } = req.query;
+
+    const query = {};
+
+    // 🔹 Регион и отель
+    if (region) query.region = region;
+    if (hotel) query.hotel = hotel;
+
+    // 🔹 Активность
+    if (typeof isActive !== 'undefined') {
+      query.isActive = isActive === 'true';
+    }
+
+    // 🔹 Цена
+    if (minPrice || maxPrice) {
+      query.price = {};
+      if (minPrice) query.price.$gte = Number(minPrice);
+      if (maxPrice) query.price.$lte = Number(maxPrice);
+    }
+
+    // 🔹 Дни
+    if (minDays || maxDays) {
+      query.days = {};
+      if (minDays) query.days.$gte = Number(minDays);
+      if (maxDays) query.days.$lte = Number(maxDays);
+    }
+
+    // 🔹 Ночи
+    if (minNights || maxNights) {
+      query.nights = {};
+      if (minNights) query.nights.$gte = Number(minNights);
+      if (maxNights) query.nights.$lte = Number(maxNights);
+    }
+
+    // 🔹 Включенные опции
+    if (includes) {
+      const arr = Array.isArray(includes) ? includes : includes.split(',');
+      query.includes = { $all: arr };
+    }
+
+    // 🔹 Extras: поиск по ключевым словам (во всех языках)
+    if (extras) {
+      query.$or = [
+        { 'extras.en': { $regex: extras, $options: 'i' } },
+        { 'extras.ru': { $regex: extras, $options: 'i' } },
+        { 'extras.uz': { $regex: extras, $options: 'i' } }
+      ];
+    }
+
+    // 🔹 Название тура (по нужному языку)
+    if (search && ['en', 'ru', 'uz'].includes(titleLang)) {
+      query[`title.${titleLang}`] = { $regex: search, $options: 'i' };
+    }
+
+    // 🔹 Погода (если ты добавишь поле `weather` в модель)
+    if (weather) {
+      query.weather = { $regex: weather, $options: 'i' };
+    }
+
+    // 🔹 Фильтрация по дате создания
+    if (createdAfter || createdBefore) {
+      query.createdAt = {};
+      if (createdAfter) query.createdAt.$gte = new Date(createdAfter);
+      if (createdBefore) query.createdAt.$lte = new Date(createdBefore);
+    }
+
+    // 🔹 Фильтрация по дате обновления
+    if (updatedAfter || updatedBefore) {
+      query.updatedAt = {};
+      if (updatedAfter) query.updatedAt.$gte = new Date(updatedAfter);
+      if (updatedBefore) query.updatedAt.$lte = new Date(updatedBefore);
+    }
+
+    const tours = await Tour.find(query).populate('region hotel');
     res.json(tours);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
+
+
 
 
 exports.getTour = async (req, res) => {
@@ -69,7 +163,7 @@ exports.updateTour = async (req, res) => {
 
     const updatedData = { ...req.body };
 
-    const jsonFields = ['title', 'route', 'shortDescription', 'includes', 'extras', 'existingImages'];
+    const jsonFields = ['title', 'route', 'shortDescription', 'includes', 'extras', 'discounts', 'existingImages']; // 👈 тоже добавил discounts
     jsonFields.forEach(field => {
       if (updatedData[field] && typeof updatedData[field] === 'string') {
         try {
@@ -80,13 +174,11 @@ exports.updateTour = async (req, res) => {
       }
     });
 
-    // Удалённые изображения не попадут в existingImages, поэтому сохраняем только их
     const remainingImages = updatedData.existingImages || [];
     const newImages = req.files?.map(file => `tours/${file.filename}`) || [];
     updatedData.images = [...remainingImages, ...newImages];
     delete updatedData.existingImages;
 
-    // Обновим nights автоматически при изменении days
     if (updatedData.days) {
       updatedData.nights = updatedData.days > 0 ? updatedData.days - 1 : 0;
     }

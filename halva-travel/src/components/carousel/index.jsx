@@ -1,58 +1,120 @@
-import React from 'react'
-import { MapPin, Star } from 'lucide-react'
-import { Carousel } from 'react-responsive-carousel'
-import 'react-responsive-carousel/lib/styles/carousel.min.css'
+import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { Carousel } from 'react-responsive-carousel';
+import { motion } from 'framer-motion';
+import axios from '../../api/axiosConfig';
+import { useTranslation } from 'react-i18next'; // добавил
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 const TravelCarousel = () => {
+  const { t } = useTranslation(); // добавил
+  const [formData, setFormData] = useState({ name: '', phone: '', message: '' });
+
+  const handleChange = (e) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post('/contact', formData);
+      toast.success(t("formSuccess"));
+      setFormData({ name: '', phone: '', message: '' });
+    } catch (err) {
+      toast.error(t("formError"));
+      console.error('Ошибка:', err);
+    }
+  };
+
   return (
-    <div className="w-full max-w-screen-2xl mx-auto py-6 px-4">
+    <div className="w-full max-w-screen-2xl mt-4 mx-auto py-6 px-4">
       <Carousel
         showThumbs={false}
         showStatus={false}
-        infiniteLoop={true}
-        showIndicators={true}
-        showArrows={true}
-        autoPlay={false}
-        interval={5000}
+        infiniteLoop
+        showIndicators
+        showArrows
       >
-       <div className="relative rounded-xl overflow-hidden">
-  <img
-    src="/image 10010.png" // Замените на фактический путь к изображению
-    alt="Khorezm Climate Resort"
-    className="w-full h-[400px] object-cover"
-  />
+        <div className="relative rounded-xl overflow-hidden">
+          <img
+            src="/1370x440_rixos.jpg"
+            alt="Khorezm Climate Resort"
+            className="w-full h-[600px] object-cover"
+          />
 
-  <div className="absolute top-0 left-0 w-full h-full bg-white bg-opacity-80 md:w-[550px] md:h-[90%] rounded-xl m-4 p-6 flex flex-col justify-between shadow-lg">
-    <div>
-      <div className="flex items-center gap-2 text-sm text-gray-600">
-        <MapPin size={16} /> Узбекистан / Хорезм
-      </div>
-      <div className="flex items-center gap-1 my-2">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <Star key={i} size={20} fill="#FACC15" stroke="#FACC15" />
-        ))}
-      </div>
-      <h2 className="text-2xl text-left font-bold text-gray-800 leading-snug">
-        Хорезм Климaтический Курорт
-      </h2>
-      <p className="text-gray-600 text-left mt-2">
-        Отдохните и восстановите силы в живописном сердце Хорезма, где сочетаются древность и комфорт.
-      </p>
-    </div>
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="absolute max-h-max top-0 left-0 w-full md:w-[550px] h-full bg-white/90 backdrop-blur-sm rounded-xl m-4 p-6 shadow-xl flex flex-col justify-center"
+          >
+            <div className="text-left">
+              <motion.h2
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.7 }}
+                className="text-2xl font-bold text-gray-800 mb-2"
+              >
+                {t("consultationTitle")}
+              </motion.h2>
 
-    <button className="bg-[#DFAF68] cursor-pointer text-white px-6 py-3 rounded-xl text-sm hover:bg-[#b08c52] transition">
-      Подробнее
-    </button>
-  </div>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5, duration: 0.7 }}
+                className="text-gray-600 mb-4"
+              >
+                {t("consultationSubtitle")}
+              </motion.p>
+            </div>
 
-  <div className="absolute top-2 right-4 text-xs text-gray-600">
-    Реклама. ООО «Центрбронь» erid: 2W5zFJkKT6Q
-  </div>
-</div>
-
+            {/* Форма */}
+            <motion.form
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7, duration: 0.8 }}
+              onSubmit={handleSubmit}
+              className="space-y-3 flex flex-col gap-3"
+            >
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder={t("yourName")}
+                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#DFAF68]"
+                required
+              />
+              <input
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                placeholder="+998 90 123 45 67"
+                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#DFAF68]"
+                required
+              />
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                placeholder={t("yourQuestion")}
+                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#DFAF68] resize-none"
+                rows="3"
+                required
+              />
+              <button
+                type="submit"
+                className="bg-[#DFAF68] text-white w-full py-3 rounded-xl hover:bg-[#b08c52] transition font-medium"
+              >
+                {t("sendRequest")}
+              </button>
+            </motion.form>
+          </motion.div>
+        </div>
       </Carousel>
     </div>
-  )
-}
+  );
+};
 
-export default TravelCarousel
+export default TravelCarousel;

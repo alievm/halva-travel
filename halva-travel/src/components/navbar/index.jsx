@@ -2,15 +2,16 @@ import { AnimatePresence , motion} from 'framer-motion';
 import { Phone } from 'lucide-react'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next';
+import MobileMenu from '../MobileMenu';
 
 const Navbar = () => {
   const [lang, setLang] = useState(false);
   const {t,  i18n } = useTranslation();
 
   const langLinks = [
-    { label: "Русский", code: "ru", symbol: "₽" },
-    { label: "Английский", code: "en", symbol: "£" },
-    { label: "Узбекский", code: "uz", symbol: "UZS" },
+    { label: "Русский", code: "ru", img: "/ru.svg" },
+    { label: "English", code: "en", img: "/uk.svg" },
+    { label: "O'zbekcha", code: "uz", img: "/uz.svg" },
   ];
 
   const currentLang = langLinks.find((l) => l.code === i18n.language) || langLinks[0];
@@ -66,7 +67,10 @@ const Navbar = () => {
   <div className="sc-d8deed8b-0 hGnBaE relative">
     <button    onClick={() => setLang(!lang)} className="sc-f203a167-0 flex cursor-pointer  items-center gap-2 eCgaQm left" >
       <div className="sc-ae340dfe-0 flex items-center gap-2 dKKPmH">
-        <span className="name">{currentLang.symbol} - {currentLang.label}</span>
+      <img src={currentLang.img} alt={currentLang.label} className="w-5 h-5" />
+    <span className="name">
+      {currentLang.label}
+    </span>
         <span role="img" className="anticon">
           <svg
             width="16"
@@ -88,29 +92,30 @@ const Navbar = () => {
     </button>
 
     <AnimatePresence>
-        {lang && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-            className="absolute z-50 left-0 mt-2 w-full min-w-max bg-white rounded-2xl p-2 shadow-lg"
-          >
-            {langLinks.map((link, i) => (
-              <span
-                key={i}
-                onClick={() => {
-                  i18n.changeLanguage(link.code);
-                  setLang(false);
-                }}
-                className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 rounded cursor-pointer"
-              >
-                {link.label}
-              </span>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
+  {lang && (
+    <motion.div
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.2 }}
+      className="absolute z-50 left-0 mt-2 w-full min-w-max bg-white rounded-2xl p-2 shadow-lg"
+    >
+      {langLinks.map((link, i) => (
+        <span
+          key={i}
+          onClick={() => {
+            i18n.changeLanguage(link.code);
+            setLang(false);
+          }}
+          className="flex items-center gap-2 px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 rounded cursor-pointer"
+        >
+          <img src={link.img} alt={link.label} className="w-5 h-5" />
+          {link.label}
+        </span>
+      ))}
+    </motion.div>
+  )}
+</AnimatePresence>
   </div>
 
   <span className="ant-badge sc-ea385771-0 rtQUO css-1goufg3">
@@ -205,9 +210,8 @@ const Navbar = () => {
     </div>
 </div>
 
-<div className="icon-wrapper lg:hidden flex"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"><circle cx="10" cy="10" r="8" stroke="#535353" stroke-linejoin="round"></circle><path stroke="#535353" stroke-linejoin="round" d="m16 16 6 6"></path></svg></div>
-
-        </div>
+<MobileMenu t={t} />
+</div>
     </div>
   )
 }

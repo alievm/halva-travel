@@ -1,10 +1,11 @@
 {
-    "about": "About Us",
+    "aboutTitle": "About Us",
     "tours": "Tours",
     "info": "Useful Info",
     "promotions": "Promotions",
     "news": "News",
     "faq": "FAQ",
+    "all": "All Regions",
     "contacts": "Contacts",
     "phone": "+7 (495) 502 10 11",
     "where_to_buy": "Where to Buy",
@@ -35,6 +36,255 @@
       "cuisine": "Cuisine",
       "early_booking": "Early Booking",
       "off_season": "Off-season Booking"
+    },
+
+    "about_uz": {
+  "title": "About Uzbekistan",
+  "intro": "Located at the heart of the ancient Silk Road, Uzbekistan is a stunning blend of historic cities, vibrant culture, and breathtaking architecture. From dazzling blue-tiled mosques to bustling bazaars, this Central Asian gem offers a unique travel experience steeped in history.",
+  "history": {
+    "title": "Rich History of the Silk Road",
+    "text": "Uzbekistan was once the center of the Great Silk Road, connecting China with the Mediterranean. Legendary cities such as Samarkand, Bukhara, and Khiva served as key trading and cultural hubs. With centuries-old madrasas, caravanserais, and mosques, these cities preserve Islamic architecture at its finest."
+  },
+  "culture": {
+    "title": "Traditions and Hospitality",
+    "text": "Uzbek culture is known for its warm hospitality, rich traditions, and colorful festivals. Guests are treated with the utmost respect and offered traditional dishes like plov, samsa, and freshly baked non. Music, dance, and national attire form a vibrant part of every celebration."
+  },
+  "facts": {
+    "title": "Quick Facts",
+    "capital": { "label": "Capital", "value": "Tashkent" },
+    "population": { "label": "Population", "value": "~36 million (2024)" },
+    "language": { "label": "Language", "value": "Uzbek" },
+    "currency": { "label": "Currency", "value": "Uzbek Soʻm (UZS)" },
+    "religion": { "label": "Religion", "value": "Islam (majority)" },
+    "unesco": { "label": "UNESCO Sites", "value": "Samarkand, Bukhara, Khiva" }
+  },
+  "explore": {
+    "title": "Explore More",
+    "text": "Discover Uzbekistan’s cities, cultural heritage, and world-famous cuisine.",
+    "button": "Explore Cities"
+  }
+},
+"citiesPage": {
+  "title": "Cities of Uzbekistan",
+  "subtitle": "Discover Uzbekistan's diverse regions, from historic cities to modern capitals, each with its own unique charm and story.",
+  "updated": "Last updated"
+},
+"transport": {
+  "title": "Transport in Uzbekistan",
+  "intro": "Uzbekistan offers a variety of transportation options for locals and travelers, from high-speed trains to traditional taxis.",
+  
+  "types": {
+    "title": "Main Types of Transport",
+    "train": {
+      "title": "Railways",
+      "desc": "Uzbekistan Railways provides fast and affordable travel across major cities, including the Afrosiyob high-speed train."
+    },
+    "bus": {
+      "title": "Intercity Buses",
+      "desc": "Buses connect almost every city and village, making them a reliable and budget-friendly option."
+    },
+    "taxi": {
+      "title": "Taxis and Ride-Sharing",
+      "desc": "Available everywhere. Apps like Yandex and MyTaxi allow easy booking at any time."
+    },
+    "metro": {
+      "title": "Tashkent Metro",
+      "desc": "One of the most beautiful and efficient metro systems in Central Asia. Operates daily with low fares."
     }
+  },
+
+  "tips": {
+    "title": "Tips for Travelers",
+    "items": [
+      "Purchase train tickets in advance, especially during holidays.",
+      "Use official apps for booking taxis to avoid scams.",
+      "Local marshrutkas (minibuses) are cheap but can be crowded.",
+      "Always carry cash, especially in rural areas."
+    ]
+  },
+
+  "benefits": {
+    "title": "Why Public Transport?",
+    "list": [
+      "Eco-friendly and budget-friendly",
+      "Well-connected cities and villages",
+      "Safe and maintained by the government",
+      "Locals are always helpful to tourists"
+    ]
+  },
+
+  "explore": {
+    "title": "Explore Uzbekistan comfortably",
+    "text": "From the ancient cities of Samarkand to the vibrant life of Tashkent — getting around is easy and accessible.",
+    "button": "View All Cities"
+  }
+},
+
+"mustknow": {
+    "title": "What You Must Know Before Visiting Uzbekistan",
+    "intro": "Before traveling to Uzbekistan, it's important to know essential rules, visa requirements, safety tips, and other useful information.",
+    "visa_currency": {
+      "title": "Visa & Currency",
+      "visa": {
+        "title": "Visa Information",
+        "text": "Citizens of over 90 countries can enter Uzbekistan visa-free for up to 30 days. Others can apply for an e-visa via e-visa.gov.uz."
+      },
+      "currency": {
+        "title": "Currency Exchange",
+        "text": "The official currency is Uzbek soʻm (UZS). Exchange money only at banks or authorized exchange points. Foreign currency is not accepted in shops."
+      }
+    },
+    "health_safety": {
+      "title": "Health & Safety",
+      "text": "Uzbekistan is considered safe for tourists. Carry basic medication. Tap water should be boiled before drinking."
+    },
+    "customs": {
+      "title": "Customs Regulations",
+      "text": "You may import up to 2 liters of alcohol and 10 packs of cigarettes. Antiques and national artifacts must be declared. Export of local currency is prohibited."
+    },
+    "contacts": {
+      "title": "Emergency Contacts",
+      "police": "Police",
+      "ambulance": "Ambulance",
+      "fire": "Fire Department",
+      "tourist": "Tourist Support"
+    },
+    "cta": {
+      "title": "Plan Your Trip with Ease!",
+      "text": "Learn more about transport to move around confidently.",
+      "button": "Go to Transport Page"
+    }
+  },
+
+  "culture": {
+    "title": "Culture of Uzbekistan",
+    "intro": "Uzbekistan is a land of rich and ancient culture, blending Eastern traditions, Islamic heritage, and unique national arts.",
+    "traditions": {
+      "title": "Traditions and Customs",
+      "text": "Uzbek traditions are passed down through generations: hospitality, family values, celebrations, and weddings are central to life."
+    },
+    "music": {
+      "title": "Music and Dance",
+      "text": "Uzbek music and dance are known for their melody, rhythm, and colorful costumes. Popular genres include Shashmaqom and Bakhshi storytelling."
+    },
+    "clothing": {
+      "title": "National Clothing",
+      "text": "Uzbek attire is decorated with traditional patterns and vibrant colors. Common items include chapan, doppi, and ikat silk fabrics."
+    },
+    "cta": {
+      "title": "Discover more about Uzbek culture",
+      "text": "Explore the richness of Uzbek cuisine, arts, and traditional crafts.",
+      "button": "Explore Cuisine"
+    }
+  },
+
+  "cuisine": {
+  "title": "Uzbek Cuisine",
+  "intro": "Uzbek cuisine is a flavorful journey through traditions, rich aromas, and heartfelt hospitality.",
+  "dishes": {
+    "title": "National Dishes",
+    "text": "Plov is the heart of Uzbek cuisine. You’ll also enjoy samsa, lagman, shurpa, manty, and many other dishes made with love and tradition."
+  },
+  "bread": {
+    "title": "Bread and Pastries",
+    "text": "The tandoor bread, or 'non', is sacred in Uzbekistan. Served with every meal, it's baked in clay ovens and often topped with sesame or onions."
+  },
+  "sweets": {
+    "title": "Sweets & Tea",
+    "text": "Green tea is a staple of Uzbek hospitality. Served with sweets like baklava, nougat, and dried fruits, it's a cultural experience in itself."
+  },
+  "cta": {
+    "title": "Taste the real flavor of Uzbekistan!",
+    "text": "Join our exclusive food tours and explore the richness of Uzbek gastronomy.",
+    "button": "View Tours"
+  }
+},
+"more": "Read more",
+
+"toursPageTitle": "Our Tours",
+  "selectRegion": "Select region",
+  "selectHotel": "Select hotel",
+  "searchByName": "Search by tour name",
+  "filter": "Apply",
+
+  "about": {
+    "title": "About Us",
+    "intro": "Halva Travel is a team that inspires travel. We specialize in organizing unique tours across Uzbekistan, creating memories that last a lifetime.",
+    "activityTitle": "Company Activities",
+    "activityDesc": "Our company provides a full range of travel services — from individual tours to corporate journeys. We offer:",
+    "activityList": [
+      "Excursions through ancient Silk Road cities",
+      "Hotel selection and reservation",
+      "Guides in your native language",
+      "Unique gastro and ethnographic programs"
+    ],
+    "missionTitle": "Goals and Mission",
+    "missionDesc": "Our mission is to introduce Uzbekistan to the world. We aim to showcase our country through authentic culture, warm hospitality, and natural beauty. Our goal is to become a leading tour operator that connects people through travel.",
+    "valuesTitle": "Values and Principles",
+    "valuesDesc": "We believe in honesty, transparency, and care for each client. Our core principles are:",
+    "valuesList": [
+      "Client-focus — every guest is treated like a friend",
+      "Quality — only the best routes and trusted partners",
+      "Transparency — fair pricing and clear conditions",
+      "Responsibility — for your safety and comfort"
+    ]
+  },
+
+   "newsPageTitle": "News",
+  "readMore": "Read more",
+   "promotionsPage": {
+    "title": "Promotions and Special Offers",
+    "subtitle": "Save on your trips with our amazing deals!",
+    "offSeasonTitle": "Off-season Booking — Your Benefits:",
+    "discount": "Discounts from 5% to 10% for off-season tour bookings.",
+    "noCrowds": "Fewer tourists — more comfort.",
+    "cheaperHotels": "Affordable hotels, flights, and excursions.",
+    "personalService": "Personalized service and attention.",
+    "relaxedAtmosphere": "Quiet and peaceful atmosphere for true relaxation.",
+    "validityTitle": "When are the discounts valid?",
+    "validityDescription": "Discounts apply to tours departing between September–December and January–March.",
+    "cta": "Learn More"
+  },
+
+  "reasons": {
+    "title": "Five Reasons to Book",
+    "list": [
+      "Simple search and easy filter",
+      "Payment with cards",
+      "Great prices and promotions",
+      "Exclusive hotels — only at Halva Travel",
+      "Support by phone and in chat"
+    ]
+  },
+
+  "faqPage": {
+    "title": "Frequently Asked Questions"
+  },
+
+  "bookingTourTitle": "Tour Booking",
+  "nights": "Nights",
+  "duration": "Duration",
+  "bookButton": "Book Now",
+  "hotlineText": "Hotline for tourists 24/7 regarding booking",
+  "callButton": "Call",
+
+  "shortDescriptionTitle": "Short Tour Description",
+  "extrasTitle": "Extras",
+
+   "copyLink": "Copy Link",
+  "linkCopied": "Link copied!",
+   "pricePerPerson": " / person",
+   "consultationTitle": "Specialist Consultation",
+   "consultationSubtitle": "Fill out the form and we will contact you shortly.",
+   "yourQuestion": "Your Question",
+   "sendRequest": "Send Request",
+   "formSuccess": "Thank you! We will contact you soon.",
+   "formError": "Error sending request. Please try again later.",
+   "hotelsTitle": "Hotels",
+   "regionDescription": "Region Description",
+   "priceUponRequest": "Price upon request",
+   "closeButton": "Close"
+
+
   }
   

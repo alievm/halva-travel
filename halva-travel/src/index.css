@@ -9,6 +9,47 @@
   position: relative;
 }
 
+.tours-info__ico {
+  width: 2.25rem;
+  height: 2.25rem;
+  display: inline-flex
+;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20%;
+  flex-shrink: 0;
+  background: #F3EFED;
+}
+
+.text-white {
+  color: #ffffff;
+}
+.ant-input-number {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.88);
+  font-size: 14px;
+  line-height: 1.5714285714285714;
+  list-style: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  min-width: 0;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+/* globals.css или tailwind.css */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE и Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
 .carousel-bg:before {
   z-index: -10;
   content: " ";
@@ -80,7 +121,7 @@
 .layout-container-limit {
   box-sizing: border-box;
   width: 100%;
-  padding: 0px 80px;
+  padding: 0px 40px;
   max-width: 1530px !important;
 }
 

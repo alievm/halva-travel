@@ -1,1 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
+
+* {
+    font-family: "Montserrat", sans-serif;
+}
+
+.ant-layout-sider {
+    position: relative;
+    min-width: 0;
+    background: rgb(15, 15, 15);
+    transition: all 0.2s, background 0s;
+}
+
+.ant-menu-dark, :where(.css-dev-only-do-not-override-1j0vp8q).ant-menu-dark>.ant-menu {
+    color: rgba(255, 255, 255, 0.65);
+    background: rgb(15, 15, 15);
+}
+
+:where(.css-dev-only-do-not-override-1j0vp8q).ant-layout-header {
+    height: 64px;
+    padding: 0 50px;
+    color: rgba(0, 0, 0, 0.88);
+    line-height: 64px;
+    background: rgb(15, 15, 15);
+}
+
+.text-white {
+    color: white;
+}

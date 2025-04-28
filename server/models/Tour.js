@@ -1,6 +1,27 @@
 const mongoose = require('mongoose');
 const { v4: uuidv4 } = require('uuid');
 
+const discountSchema = new mongoose.Schema({
+  type: {
+    type: String,
+    enum: ['early_booking', 'seasonal_offer', 'last_minute'],
+    required: true
+  },
+  description: {
+    ru: { type: String },
+    en: { type: String },
+    uz: { type: String }
+  },
+  amount: {
+    type: Number, // скидка в процентах, например, 20 = 20%
+    required: true
+  },
+  validUntil: {
+    type: Date,
+    required: true
+  }
+}, { _id: false });
+
 const tourSchema = new mongoose.Schema({
   region: {
     type: mongoose.Schema.Types.ObjectId,
@@ -79,6 +100,11 @@ const tourSchema = new mongoose.Schema({
 
   images: {
     type: [String],
+    default: []
+  },
+
+  discounts: {
+    type: [discountSchema],
     default: []
   }
 

@@ -1,10 +1,11 @@
 {
-    "about": "Biz haqimizda",
+    "aboutTitle": "Biz haqimizda",
     "tours": "Turlar",
     "info": "Foydali ma’lumotlar",
     "promotions": "Aksiyalar",
     "news": "Yangiliklar",
     "faq": "FAQ",
+    "all": "Barcha viloyatlar",
     "contacts": "Aloqa",
     "phone": "+7 (495) 502 10 11",
     "where_to_buy": "Qayerdan xarid qilish mumkin",
@@ -35,6 +36,255 @@
       "cuisine": "Oshxona",
       "early_booking": "Oldindan bron qilish",
       "off_season": "Mavsumdan tashqari bron"
+    },
+    "about_uz": {
+  "title": "O‘zbekiston haqida",
+  "intro": "Buyuk Ipak yo‘lining markazida joylashgan O‘zbekiston — bu tarixiy shaharlar, boy madaniyat va hayratomuz me’moriyat uyg‘unligidir. Moviy gumbazli masjidlar va gavjum bozorlar sayohatchilarni tarixga sayrga chorlaydi.",
+  "history": {
+    "title": "Ipak yo‘li tarixiy merosi",
+    "text": "O‘zbekiston qadimda Buyuk Ipak yo‘lining yuragi bo‘lgan. Samarqand, Buxoro va Xiva kabi shaharlar savdo va madaniyat markazi sifatida tanilgan. Asrlar davomida qurilgan madrasa, karvonsaroy va masjidlar hanuzgacha o‘z ko‘rkini saqlab kelmoqda."
+  },
+  "culture": {
+    "title": "An’analar va mehmondo‘stlik",
+    "text": "O‘zbek xalqi mehmondo‘stligi, boy an’analari va rang-barang bayramlari bilan mashhur. Mehmonlarga plov, somsa, non kabi milliy taomlar tortiq qilinadi. Raqs, musiqa va milliy kiyimlar har bir tantana bezagidir."
+  },
+  "facts": {
+    "title": "Qiziqarli faktlar",
+    "capital": { "label": "Poytaxt", "value": "Toshkent" },
+    "population": { "label": "Aholisi", "value": "~36 million (2024)" },
+    "language": { "label": "Til", "value": "O‘zbek tili" },
+    "currency": { "label": "Pul birligi", "value": "O‘zbekiston so‘mi (UZS)" },
+    "religion": { "label": "Din", "value": "Islom (asosiy)" },
+    "unesco": { "label": "YuNESKO obidalari", "value": "Samarqand, Buxoro, Xiva" }
+  },
+  "explore": {
+    "title": "Yana kashf eting",
+    "text": "O‘zbekiston shaharlarini, madaniy merosini va mashhur oshxonasini kashf eting.",
+    "button": "Shaharlarni ko‘rish"
+  }
+},
+"citiesPage": {
+  "title": "O‘zbekiston shaharlari",
+  "subtitle": "Tarixiy shaharlar va zamonaviy markazlardan iborat O‘zbekiston hududlarini kashf eting. Har bir viloyat o‘ziga xos joziba va tarixga ega.",
+  "updated": "Oxirgi yangilanish"
+},
+
+"transport": {
+  "title": "O'zbekistondagi transport",
+  "intro": "O'zbekiston aholisi va sayyohlar uchun keng transport imkoniyatlariga ega — yuqori tezlikdagi poyezdlardan tortib oddiy taksilargacha.",
+
+  "types": {
+    "title": "Asosiy transport turlari",
+    "train": {
+      "title": "Temiryoʻllar",
+      "desc": "Oʻzbekiston temiryoʻllari yurt boʻylab tez va arzon sayohat qilish imkonini beradi, xususan Afrosiyob poyezdi mashhur."
+    },
+    "bus": {
+      "title": "Shaharlararo avtobuslar",
+      "desc": "Avtobuslar har bir shahar va qishloqni bogʻlab turadi. Bu eng tejamkor transport turlaridan biridir."
+    },
+    "taxi": {
+      "title": "Taksi va ilovalar",
+      "desc": "Taksilar har joyda mavjud. Yandex va MyTaxi kabi ilovalar orqali oson buyurtma berish mumkin."
+    },
+    "metro": {
+      "title": "Toshkent metrosi",
+      "desc": "Markaziy Osiyodagi eng chiroyli va samarali metro tizimlaridan biri. Har kuni ishlaydi va narxi juda arzon."
     }
+  },
+
+  "tips": {
+    "title": "Sayohatchilar uchun maslahatlar",
+    "items": [
+      "Bayram kunlarida chiptalarni oldindan oling.",
+      "Rasmiy ilovalardan foydalaning — bu xavfsizroq.",
+      "Marshrutkalar arzon, lekin gavjum boʻlishi mumkin.",
+      "Naqd pul olib yuring, ayniqsa qishloq joylarda."
+    ]
+  },
+
+  "benefits": {
+    "title": "Nega jamoat transporti?",
+    "list": [
+      "Ekologik va tejamkor",
+      "Shahar va qishloqlar oʻrtasida aloqador",
+      "Xavfsiz va davlat tomonidan nazorat qilinadi",
+      "Odamlar mehmondoʻst va yordam berishga tayyor"
+    ]
+  },
+
+  "explore": {
+    "title": "Oʻzbekistonni qulay tarzda kashf eting",
+    "text": "Samarqandning qadimiy goʻzalliklaridan Toshkentdagi zamonaviy hayotgacha — sayohat qilish oson va arzon.",
+    "button": "Barcha shaharlarni koʻrish"
+  }
+},
+
+"mustknow": {
+  "title": "O‘zbekistonga sayohat oldidan bilishingiz kerak bo‘lganlar",
+  "intro": "O‘zbekistonga safar oldidan asosiy qoidalar, viza talablari, xavfsizlik va boshqa amaliy jihatlar bilan tanishing.",
+  "visa_currency": {
+    "title": "Viza va Valyuta",
+    "visa": {
+      "title": "Viza ma'lumotlari",
+      "text": "90 dan ortiq davlat fuqarolari 30 kungacha vizasiz kirish huquqiga ega. Qolganlar uchun e-visa.gov.uz orqali elektron viza olish mumkin."
+    },
+    "currency": {
+      "title": "Valyuta almashinuvi",
+      "text": "Rasmiy valyuta — O‘zbekiston so‘mi (UZS). Pulni faqat banklar va ruxsat etilgan ayirboshlash punktlarida almashtiring."
+    }
+  },
+  "health_safety": {
+    "title": "Sog‘liq va xavfsizlik",
+    "text": "O‘zbekiston sayyohlar uchun xavfsiz mamlakat hisoblanadi. Shaxsiy dori-darmonlarni o‘zingiz bilan olib yurish tavsiya etiladi. Krant suvini ichishdan avval qaynatish lozim."
+  },
+  "customs": {
+    "title": "Bojxona qoidalari",
+    "text": "2 litr alkogol va 10 qadoq sigaret olib kirishga ruxsat beriladi. Antikvar buyumlar va milliy boyliklar bojxonada deklaratsiya qilinishi kerak. Milliy valyutani olib chiqish taqiqlanadi."
+  },
+  "contacts": {
+    "title": "Favqulodda holatlar uchun kontaktlar",
+    "police": "Politsiya",
+    "ambulance": "Tez yordam",
+    "fire": "Yong‘in xizmati",
+    "tourist": "Sayyohlar uchun qo‘llab-quvvatlash"
+  },
+  "cta": {
+    "title": "Sayohatingizni oson rejalashtiring!",
+    "text": "Mamlakat bo‘ylab bemalol harakatlanish uchun transport haqida ko‘proq bilib oling.",
+    "button": "Transport sahifasiga o‘tish"
+  }
+},
+
+"culture": {
+    "title": "O‘zbekiston madaniyati",
+    "intro": "O‘zbekiston boy va qadimiy madaniyati bilan mashhur bo‘lib, sharqona an’analar, islom merosi va noyob san’at uyg‘unligiga ega.",
+    "traditions": {
+      "title": "An’analar va urf-odatlar",
+      "text": "O‘zbek an’analari avloddan avlodga o‘tadi: mehmondo‘stlik, oila qadriyatlari, bayramlar va to‘ylar hayotning muhim qismidir."
+    },
+    "music": {
+      "title": "Musiqa va raqslar",
+      "text": "O‘zbek milliy musiqasi va raqslari o‘zining ohangdorligi, ritmi va yorqin liboslari bilan mashhur. Shashmaqom va baxshichilik mashhur janrlardandir."
+    },
+    "clothing": {
+      "title": "Milliy kiyimlar",
+      "text": "O‘zbek kiyimlari an’anaviy naqshlar bilan bezatilgan va yorqin ranglarga boy. Chapan, do‘ppi va adras to‘qimalari mashhurdir."
+    },
+    "cta": {
+      "title": "O‘zbekiston madaniyatini yanada chuqurroq o‘rganing",
+      "text": "O‘zbek milliy taomlari, san’ati va hunarmandchiligi bilan tanishing.",
+      "button": "Oshxonani o‘rganish"
+    }
+  },
+
+  "cuisine": {
+  "title": "Oʻzbek taomlari",
+  "intro": "Oʻzbek milliy taomlari – bu an’anaviy mazali taomlar, boy lazzatlar va mehmondoʻstlik madaniyatining uygʻunligi.",
+  "dishes": {
+    "title": "Milliy taomlar",
+    "text": "Palov — oʻzbek oshxonasining faxri. Bundan tashqari, sizni somsa, lagʻmon, shoʻrva, manti va boshqa koʻplab an’anaviy taomlar kutmoqda."
+  },
+  "bread": {
+    "title": "Non va pishiriqlar",
+    "text": "Tandir non – Oʻzbekistonda muqaddas hisoblanadi. Har qanday taomga non tortiladi va u maxsus tandirda pishiriladi."
+  },
+  "sweets": {
+    "title": "Shirinliklar va choy",
+    "text": "Yashil choy — har bir uy mehmonining dasturxonida boʻlishi shart. Choyga baqlava, qandlar, quritilgan mevalar va boshqa shirinliklar beriladi."
+  },
+  "cta": {
+    "title": "Oʻzbek taomlarini tatib koʻring!",
+    "text": "Gastronomik sayohatga bizning eksklyuziv turlarimiz bilan qoʻshiling.",
+    "button": "Turlarni koʻrish"
+  }
+},
+  "more": "Batafsil",
+
+  "toursPageTitle": "Bizning sayohatlar",
+  "selectRegion": "Hududni tanlang",
+  "selectHotel": "Mehmonxonani tanlang",
+  "searchByName": "Tur nomi bo‘yicha qidirish",
+  "filter": "Qo‘llash",
+
+  "about": {
+    "title": "Biz haqimizda",
+    "intro": "Halva Travel — bu sayohat qilishga ilhom beruvchi jamoa. Biz Oʻzbekiston boʻylab noyob sayohatlarni tashkil qilishga ixtisoslashganmiz va unutilmas taassurotlar qoldiramiz.",
+    "activityTitle": "Kompaniya faoliyati",
+    "activityDesc": "Bizning kompaniyamiz turli xil sayohat xizmatlarini taklif etadi — individual turlardan korporativ sayohatlarga qadar. Biz quyidagilarni taklif qilamiz:",
+    "activityList": [
+      "Buyuk ipak yoʻli boʻylab qadimiy shaharlarga sayohatlar",
+      "Eng yaxshi mehmonxonalarni tanlash va bron qilish",
+      "Oʻz tilingizda hamroh boʻlish xizmati",
+      "Gastro va etno-turizm dasturlari"
+    ],
+    "missionTitle": "Maqsad va missiya",
+    "missionDesc": "Bizning missiyamiz — butun dunyoga Oʻzbekistonni tanishtirish. Biz mamlakatimizni madaniyat, mehmondoʻstlik va tabiiy goʻzallik orqali koʻrsatmoqchimiz. Maqsadimiz — odamlarni sayohatlar orqali birlashtirishdir.",
+    "valuesTitle": "Qadriyatlar va prinsiplar",
+    "valuesDesc": "Biz halollik, shaffoflik va mijozlarga g'amxo'rlikka ishonamiz. Bizning asosiy prinsiplarimiz:",
+    "valuesList": [
+      "Mijozga yoʻnaltirilganlik — har bir mehmon biz uchun doʻst",
+      "Sifat — faqat eng yaxshi yoʻnalishlar va ishonchli hamkorlar",
+      "Shaffoflik — adolatli narxlar va shartlar",
+      "Masʼuliyat — xavfsiz va qulay sayohatlar"
+    ]
+  },
+   "newsPageTitle": "Yangiliklar",
+  "readMore": "Batafsil",
+  "promotionsPage": {
+    "title": "Aksiya va Maxsus Takliflar",
+    "subtitle": "Ajoyib chegirmalar bilan sayohatingizni arzonlashtiring!",
+    "offSeasonTitle": "Mavsumdan tashqari bron qilish — Sizning afzalliklaringiz:",
+    "discount": "Mavsumdan tashqari tur bron qilganda 5% dan 10% gacha chegirmalar.",
+    "noCrowds": "Kamroq sayyohlar — ko‘proq qulaylik.",
+    "cheaperHotels": "Mehmonxonalar, parvozlar va ekskursiyalarda qulay narxlar.",
+    "personalService": "Shaxsiy xizmat va individual yondashuv.",
+    "relaxedAtmosphere": "Tinch va osoyishta muhitda haqiqiy dam olish imkoniyati.",
+    "validityTitle": "Chegirmalar qachon amal qiladi?",
+    "validityDescription": "Chegirmalar sentabr–dekabr va yanvar–mart oylarida ketadigan turlarga taalluqlidir.",
+    "cta": "Batafsil ma'lumot olish"
+  },
+
+  "reasons": {
+    "title": "Buyurtma berish uchun besh sabab",
+    "list": [
+      "Oson qidiruv va qulay filtr",
+      "Kartalar orqali toʻlov",
+      "Arzon narxlar va aksiyalar",
+      "Faqat Halva Travelda — eksklyuziv mehmonxonalar",
+      "Telefon va chat orqali qo‘llab-quvvatlash"
+    ]
+  },
+
+  "faqPage": {
+    "title": "Ko‘p so‘raladigan savollar"
+  },
+
+  "bookingTourTitle": "Tur bron qilish",
+  "nights": "Tunlar soni",
+  "duration": "Davomiyligi",
+  "bookButton": "Bron qilish",
+  "hotlineText": "Turistlar uchun 24/7 issiq chiziq, bron qilish bo'yicha",
+  "callButton": "Qo'ng'iroq qilish",
+
+  "shortDescriptionTitle": "Tur haqida qisqacha ma'lumot",
+  "extrasTitle": "Qo'shimcha ma'lumot",
+
+  "copyLink": "Havolani nusxalash",
+  "linkCopied": "Havola nusxalandi!",
+   "pricePerPerson": " / kishi",
+
+   "consultationTitle": "Mutaxassis maslahatlari",
+  "consultationSubtitle": "Formani to'ldiring va biz siz bilan tez orada bog'lanamiz.",
+  "yourQuestion": "Savolingiz",
+  "sendRequest": "So‘rov yuborish",
+  "formSuccess": "Rahmat! Biz siz bilan tez orada bog'lanamiz.",
+  "formError": "Xatolik yuz berdi. Iltimos, keyinroq urinib ko‘ring.",
+
+  "hotelsTitle": "Mehmonxonalar",
+  "regionDescription": "Hudud haqida ma'lumot",
+  "priceUponRequest": "Narx so'rov bo'yicha",
+  "closeButton": "Yopish"
+
   }
   

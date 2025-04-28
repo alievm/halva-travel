@@ -15,6 +15,10 @@ const regionSchema = new mongoose.Schema({
     temp: Number,
     condition: String,
     icon: String
+  },
+  images: {
+    type: [String], // массив строк
+    default: []
   }
 }, { timestamps: true });
 

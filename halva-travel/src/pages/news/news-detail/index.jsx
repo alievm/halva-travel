@@ -7,6 +7,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
+
+
+const baseURL = import.meta.env.VITE_API_BASE_URL;
+
 // 👇 Кастомные стрелки
 const PrevArrow = ({ onClick }) => (
   <button
@@ -118,7 +122,7 @@ const NewsDetails = () => {
 
           {news.image && (
             <img
-              src={`http://localhost:5000/uploads/${news.image}`}
+              src={`${baseURL}/uploads/${news.image}`}
               alt={news.title[currentLang]}
               className="w-full max-h-[500px] object-cover rounded-2xl mb-6"
             />
@@ -145,7 +149,7 @@ const NewsDetails = () => {
               <Link key={item._id} to={`/news/${item.slug}`} className="px-2">
                 <div className="bg-white rounded-lg transition-all duration-300 h-full ">
                   <img
-                    src={`http://localhost:5000/uploads/${item.image}`}
+                    src={`${baseURL}/uploads/${item.image}`}
                     alt={item.title[currentLang]}
                     className="w-full h-44 rounded-xl object-cover"
                   />

@@ -24,17 +24,17 @@ const Layout = () => {
   }, []);
 
   const infoLinks = [
-    { label: t("dropdown.about_uzbekistan"), href: "#" },
-    { label: t("dropdown.cities"), href: "#" },
-    { label: t("dropdown.hotels"), href: "#" },
-    { label: t("dropdown.transport"), href: "#" },
-    { label: t("dropdown.must_know"), href: "#" },
-    { label: t("dropdown.culture"), href: "#" },
-    { label: t("dropdown.cuisine"), href: "#" },
+    { label: t("dropdown.about_uzbekistan"), href: "/about-uzbekistan" },
+    { label: t("dropdown.cities"), href: "/cities" },
+    { label: t("dropdown.hotels"), href: "/hotels" },
+    { label: t("dropdown.transport"), href: "/transport" },
+    { label: t("dropdown.must_know"), href: "/must-know" },
+    { label: t("dropdown.culture"), href: "/culture" },
+    { label: t("dropdown.cuisine"), href: "/cuisine" },
   ];
   
   const promoLinks = [
-    { label: t("dropdown.early_booking"), href: "#" },
+    { label: t("dropdown.early_booking"), href: "/early_booking" },
     { label: t("dropdown.off_season"), href: "#" },
   ];
 
@@ -68,8 +68,8 @@ const Layout = () => {
         <Navbar/>
         <div>
        <div className='max-w-screen-2xl mx-auto h-[66px] hidden lg:flex gap-[27px] items-center'>
-          <Link className='font-medium text-sm' to=''>{t("about")}</Link>
-          <Link className='font-medium text-sm' to=''>{t("tours")}</Link>
+          <Link className='font-medium text-sm' to='/about-us'>{t("aboutTitle")}</Link>
+          <Link className='font-medium text-sm' to='/tours'>{t("tours")}</Link>
           <div className="flex space-x-4 relative z-50" ref={containerRef}>
       {/* Меню "Полезная информация" */}
       <div className="relative inline-block text-left">
@@ -115,12 +115,13 @@ const Layout = () => {
 
       {/* Меню "Акции" */}
       <div className="relative inline-block text-left">
-        <div
+        <Link
+        to='/early_booking'
           className="promo-bubble cursor-pointer flex items-center space-x-2"
-          onClick={() => {
-            setPromoOpen(!promoOpen);
-            setInfoOpen(false);
-          }}
+          // onClick={() => {
+          //   setPromoOpen(!promoOpen);
+          //   setInfoOpen(false);
+          // }}
         >
           <div className="icon">
             <div className="icon-text">
@@ -130,7 +131,7 @@ const Layout = () => {
           <div className="text">
             <p className="text-sm">{t("promotions")}</p>
           </div>
-        </div>
+        </Link>
 
         <AnimatePresence>
           {promoOpen && (
@@ -155,9 +156,9 @@ const Layout = () => {
         </AnimatePresence>
       </div>
     </div>
-          <Link className='font-medium text-sm' to=''>{t("news")}</Link>
-          <Link className='font-medium text-sm' to=''>FAQ</Link>
-          <Link className='font-medium text-sm' to=''>{t("contacts")}</Link>
+          <Link className='font-medium text-sm' to='/news'>{t("news")}</Link>
+          <Link className='font-medium text-sm' to='/faq'>FAQ</Link>
+          <Link className='font-medium text-sm' to='/contact'>{t("contacts")}</Link>
         </div>
        </div>
         <AnimatePresence>
@@ -170,8 +171,8 @@ const Layout = () => {
           className="fixed top-0 w-full bg-white z-50 shadow-md"
         >
           <div className="max-w-screen-2xl mx-auto h-[66px] hidden lg:flex gap-[27px] items-center">
-            <Link className="font-medium text-sm" to="">{t("about")}</Link>
-            <Link className="font-medium text-sm" to="">{t("tours")}</Link>
+            <Link className="font-medium text-sm" to="/about-us">{t("aboutTitle")}</Link>
+            <Link className="font-medium text-sm" to="/tours">{t("tours")}</Link>
 
             <div className="flex space-x-4 relative z-50" ref={containerRef}>
               {/* Меню info */}
@@ -207,16 +208,23 @@ const Layout = () => {
 
               {/* Меню promotions */}
               <div className="relative inline-block text-left">
-                <div
-                  className="promo-bubble cursor-pointer flex items-center space-x-2"
-                  onClick={() => {
-                    setPromoOpen(!promoOpen);
-                    setInfoOpen(false);
-                  }}
-                >
-                  <div className="icon"><img src="/price.svg" alt="promo" /></div>
-                  <div className="text"><p className="text-sm">{t("promotions")}</p></div>
-                </div>
+              <Link
+        to='/early_booking'
+          className="promo-bubble cursor-pointer flex items-center space-x-2"
+          // onClick={() => {
+          //   setPromoOpen(!promoOpen);
+          //   setInfoOpen(false);
+          // }}
+        >
+          <div className="icon">
+            <div className="icon-text">
+              <img src="/price.svg" alt="promo" />
+            </div>
+          </div>
+          <div className="text">
+            <p className="text-sm">{t("promotions")}</p>
+          </div>
+        </Link>
                 <AnimatePresence>
                   {promoOpen && (
                     <motion.div
@@ -237,9 +245,9 @@ const Layout = () => {
               </div>
             </div>
 
-            <Link className="font-medium text-sm" to="">{t("news")}</Link>
-            <Link className="font-medium text-sm" to="">FAQ</Link>
-            <Link className="font-medium text-sm" to="">{t("contacts")}</Link>
+            <Link className="font-medium text-sm" to="/news">{t("news")}</Link>
+            <Link className="font-medium text-sm" to="/faq">FAQ</Link>
+            <Link className="font-medium text-sm" to="/contact">{t("contacts")}</Link>
           </div>
         </motion.div>
       )}
