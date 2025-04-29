@@ -84,7 +84,7 @@ const NewsSection = () => {
               viewport={{ once: true }}
             >
               <img
-                src={`http://localhost:5000/uploads/${banner.image}`}
+                src={`${import.meta.env.VITE_API_BASE_URL}/uploads/${banner.image}`}
                 alt={banner.title[currentLang]}
                 className="object-cover rounded-2xl w-full h-full max-h-[360px] group-hover:scale-105 transition-all duration-700 ease-in-out"
               />

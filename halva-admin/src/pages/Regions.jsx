@@ -40,7 +40,7 @@ const Regions = () => {
         uid: `existing-${index}`,
         name: `image-${index}.jpg`,
         status: 'done',
-        url: imgUrl,
+        url: `${import.meta.env.VITE_API_BASE_URL}${imgUrl}`,
       }));
   
       setFileList(formattedImages);
@@ -60,6 +60,8 @@ const Regions = () => {
     try {
       const values = await form.validateFields();
       const formData = new FormData();
+
+      formData.append('images', JSON.stringify(fileList));
 
       formData.append(
         'name',

@@ -43,15 +43,16 @@ exports.getRegion = async (req, res) => {
 
 exports.updateRegion = async (req, res) => {
   try {
-    const { name, description } = req.body;
+    const { name, description, images } = req.body;
 
     const existingRegion = await Region.findById(req.params.id);
     if (!existingRegion) {
       return res.status(404).json({ error: 'Регион не найден' });
     }
 
-    let parsedName = name ? JSON.parse(name) : existingRegion.name;
-    let parsedDescription = description ? JSON.parse(description) : existingRegion.description;
+    const parsedName = name ? JSON.parse(name) : existingRegion.name;
+    const parsedDescription = description ? JSON.parse(description) : existingRegion.description;
+    const parsedImages = images ? JSON.parse(images) : [];
 
     let weather = existingRegion.weather;
     if (parsedName.en && parsedName.en !== existingRegion.name.en) {
@@ -59,17 +60,13 @@ exports.updateRegion = async (req, res) => {
       if (updatedWeather) weather = updatedWeather;
     }
 
-    // Добавим новые изображения, если загружены
-    const newImages = req.files?.map(file => `/uploads/tours/${file.filename}`) || [];
-    const images = [...existingRegion.images, ...newImages];
-
     const updatedRegion = await Region.findByIdAndUpdate(
       req.params.id,
       {
         name: parsedName,
         description: parsedDescription,
         weather,
-        images
+        images: parsedImages, // 👈 используем только переданные ссылки
       },
       { new: true }
     );
@@ -79,6 +76,7 @@ exports.updateRegion = async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 };
+
 
 exports.deleteRegion = async (req, res) => {
   try {

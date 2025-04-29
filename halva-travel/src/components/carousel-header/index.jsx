@@ -42,7 +42,7 @@ const CarouselHeader = () => {
             <div key={index} className="relative h-[600px] overflow-hidden">
               {/* Фон баннера */}
               <img
-                src={`http://localhost:5000/uploads/${banner.image}`}
+                src={`${import.meta.env.VITE_API_BASE_URL}/uploads/${banner.image}`}
                 alt={banner.title?.[lang]}
                 className="w-full h-full object-cover"
               />
