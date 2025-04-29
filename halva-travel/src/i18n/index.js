@@ -15,10 +15,15 @@ i18n
       en: { translation: en },
       uz: { translation: uz },
     },
-    fallbackLng: 'ru',
+    fallbackLng: 'ru', // 👉 язык по умолчанию
+    detection: {
+      order: ['localStorage', 'navigator', 'htmlTag'],
+      caches: ['localStorage'], // сохранить выбор в localStorage
+      lookupLocalStorage: 'i18nextLng', // ключ для хранения
+    },
     interpolation: {
-      escapeValue: false
-    }
+      escapeValue: false,
+    },
   });
 
 export default i18n;

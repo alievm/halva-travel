@@ -454,9 +454,12 @@ const Tour = () => {
           <Form.Item
             label="Телефон"
             name="phone"
-            rules={[{ required: true, message: "Введите номер телефона" }]}
+            rules={[
+              { required: true, message: 'Введите Email' },
+              { type: 'email', message: 'Введите корректный Email' }
+            ]}
           >
-            <Input placeholder="+998..." size="large" />
+            <Input placeholder="Email" size="large" />
           </Form.Item>
           <div className="flex justify-end gap-3 mt-4">
             <Button block onClick={() => setIsBookingVisible(false)}>Отмена</Button>

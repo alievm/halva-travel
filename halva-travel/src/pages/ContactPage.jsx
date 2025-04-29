@@ -96,11 +96,11 @@ const ContactPage = () => {
               required
             />
             <input
-              type="tel"
+              type="email"
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              placeholder="+998 90 123 45 67"
+              placeholder="Email"
               className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#DFAF68]"
               required
             />
