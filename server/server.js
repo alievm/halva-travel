@@ -9,7 +9,11 @@ dotenv.config();
 connectDB();
 
 const app = express();
-const allowedOrigins = ['http://localhost:5173', 'http://localhost:5174'];
+const allowedOrigins = [
+	'http://localhost:5173',
+	'http://localhost:3200',
+	'https://halvatravel.com',
+	'https://admin.halvatravel.com'];
 
 app.use(cors({
   origin: function (origin, callback) {
