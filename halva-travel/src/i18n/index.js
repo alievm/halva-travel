@@ -18,25 +18,19 @@ i18n
       uz: { translation: uz },
     },
     fallbackLng: 'ru',
+    supportedLngs: ['ru', 'en', 'uz'], // ✅ только эти языки
     detection: {
       order: ['localStorage', 'navigator', 'htmlTag'],
       caches: ['localStorage'],
       lookupLocalStorage: 'i18nextLng',
     },
+    nonExplicitSupportedLngs: true, // ✅ автоматически урезает ru-RU → ru
     interpolation: {
       escapeValue: false,
     },
     react: {
       useSuspense: false,
     },
-  })
-  .then(() => {
-    const lng = i18n.language || 'ru';
-    i18n.changeLanguage(lng); // 👈 гарантирует применение перевода
   });
-
-i18n.on('languageChanged', (lng) => {
-  document.documentElement.lang = lng;
-});
 
 export default i18n;
