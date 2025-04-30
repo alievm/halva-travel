@@ -12,7 +12,6 @@ const CarouselHeader = () => {
   const [banners, setBanners] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  alert(lang)
 
   useEffect(() => {
     axios
