@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import MobileMenu from '../MobileMenu';
 
 const Navbar = () => {
-  const [lang, setLang] = useState('ru');
+  const [lang, setLang] = useState(false);
   const {t,  i18n } = useTranslation();
 
   const langLinks = [
