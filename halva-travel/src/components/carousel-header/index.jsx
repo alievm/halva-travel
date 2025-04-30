@@ -6,23 +6,25 @@ import axios from "../../api/axiosConfig";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const CarouselHeader = () => {
-  const { i18n } = useTranslation();
-  const lang = i18n.language || "ru";
   const [banners, setBanners] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  const { i18n } = useTranslation();
+  const [lang, setLang] = useState(i18n.language || "ru");
+  
   useEffect(() => {
-    axios
-      .get("/banners")
-      .then((res) => {
-        const active = res.data.filter((b) => b.isActive);
-        setBanners(active);
-        if (active.length > 0) {
-          setTimeout(() => setCurrentSlide(0), 50);
-        }
-      })
-      .catch((err) => console.error("Ошибка загрузки баннеров:", err));
-  }, []);
+    const onLangChanged = (lng) => {
+      setLang(lng);
+    };
+    i18n.on("languageChanged", onLangChanged);
+  
+    // При монтировании тоже обновим
+    setLang(i18n.language || "ru");
+  
+    return () => {
+      i18n.off("languageChanged", onLangChanged);
+    };
+  }, [i18n]);
 
   return (
     <div className="max-w-screen-2xl mx-auto p-5">
