@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from '../../api/axiosConfig';
 import { useTranslation } from 'react-i18next';
 import CarouselHeader from '../../components/carousel-header';
@@ -90,7 +90,9 @@ const iconList  = [
 const Home = () => {
   const { t, i18n } = useTranslation();
   const [tours, setTours] = useState([]);
+  const [mounted, setMounted] = useState(false);
   const [regions, setRegions] = useState([]);
+  const sliderRef = useRef();
   const reasons = t('reasons.list', { returnObjects: true });
   const [hotels, setHotels] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -106,6 +108,17 @@ const Home = () => {
     maxNights: null,
     titleLang: i18n.language || 'en'
   });
+
+  useEffect(() => {
+    // Жестко устанавливаем первый слайд после mount
+    if (sliderRef.current) {
+      sliderRef.current.slickGoTo(0, true);
+    }
+  }, []);
+
+  useEffect(() => {
+    requestAnimationFrame(() => setMounted(true));
+  }, []);
 
   useEffect(() => {
     const fetchAllData = async () => {
@@ -221,18 +234,21 @@ const Home = () => {
     initial="hidden"
     animate="visible"
   >
-    <SliderSlick className="relative" {...sliderSettings}>
-      {tours.slice(0, 15).map((tour) => (
-        <div key={tour._id} className="flex justify-center px-2 slick-slide">
-          <motion.div
-            variants={itemVariants}
-            className="w-full"
-          >
-            <TourCard tour={tour} />
-          </motion.div>
-        </div>
-      ))}
-    </SliderSlick>
+    {mounted && (
+   <SliderSlick ref={sliderRef} className="relative" {...sliderSettings}>
+   {tours.slice(0, 15).map((tour) => (
+     <div key={tour._id} className="flex justify-center px-2 slick-slide">
+       <motion.div
+         variants={itemVariants}
+         className="w-full"
+       >
+         <TourCard tour={tour} />
+       </motion.div>
+     </div>
+   ))}
+ </SliderSlick>
+)}
+   
   </motion.div>
 </div>
         <TravelCarousel />
