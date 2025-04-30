@@ -10,7 +10,9 @@ const CarouselHeader = () => {
   const lang = i18n.language || "ru";
   const [banners, setBanners] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
-  
+
+  alert(lang)
+
   useEffect(() => {
     axios
       .get("/banners")
