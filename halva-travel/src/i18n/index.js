@@ -7,6 +7,7 @@ import ru from './ru.json';
 import en from './en.json';
 import uz from './uz.json';
 
+
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
@@ -28,6 +29,14 @@ i18n
     react: {
       useSuspense: false,
     },
+  })
+  .then(() => {
+    const lng = i18n.language || 'ru';
+    i18n.changeLanguage(lng); // 👈 гарантирует применение перевода
   });
+
+i18n.on('languageChanged', (lng) => {
+  document.documentElement.lang = lng;
+});
 
 export default i18n;
