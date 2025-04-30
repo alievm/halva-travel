@@ -15,11 +15,16 @@ i18n
       en: { translation: en },
       uz: { translation: uz },
     },
-    fallbackLng: 'ru', // 👉 язык по умолчанию
+    fallbackLng: 'ru',
     detection: {
-      order: ['localStorage', 'navigator', 'htmlTag'],
-      caches: ['localStorage'], // сохранить выбор в localStorage
-      lookupLocalStorage: 'i18nextLng', // ключ для хранения
+      order: ['localStorage', 'querystring', 'cookie', 'navigator', 'htmlTag'],
+      caches: ['localStorage', 'cookie'],
+      lookupLocalStorage: 'i18nextLng',
+      lookupCookie: 'i18next',
+      cookieMinutes: 10080, // 7 дней
+    },
+    react: {
+      useSuspense: false, // ✅ особенно важно, если используешь SSR или хочешь избежать "зависания"
     },
     interpolation: {
       escapeValue: false,
