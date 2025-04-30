@@ -3,6 +3,7 @@ import axios from "../../api/axiosConfig";
 import { useTranslation } from "react-i18next";
 import PageLoader from "../../components/Loader";
 import { Modal } from "antd";
+import getAppLang from "../../utils/getAppLang";
 
 const baseURL = import.meta.env.VITE_API_BASE_URL;
 
@@ -59,15 +60,15 @@ const Hotels = () => {
                   ? `${baseURL}/uploads/hotels/${hotel.images[0]}`
                   : "/no-image.png"
               }
-              alt={hotel.name[i18n.language]}
+              alt={hotel.name[getAppLang(i18n.language)]}
               className="h-48 w-full rounded-xl object-cover"
             />
             <div className="p-4">
               <h2 className="text-xl font-semibold mb-2">
-                {hotel.name[i18n.language]}
+                {hotel.name[getAppLang(i18n.language)]}
               </h2>
               <p className="text-gray-600 text-sm line-clamp-3">
-                {hotel.region?.description?.[i18n.language]?.substring(0, 120)}...
+                {hotel.region?.description?.[getAppLang(i18n.language)]?.substring(0, 120)}...
               </p>
 
               <button   onClick={() => openModal(hotel)}
@@ -103,7 +104,7 @@ const Hotels = () => {
         onCancel={closeModal}
         footer={null}
         width={800}
-        title={selectedHotel?.name[i18n.language]}
+        title={selectedHotel?.name[getAppLang(i18n.language)]}
       >
         {selectedHotel && (
           <div>
@@ -122,7 +123,7 @@ const Hotels = () => {
             {/* Описание */}
             <div className="mt-4">
               <h3 className="text-xl font-semibold mb-2">{t("regionDescription") || "Описание региона"}</h3>
-              <p className="text-gray-700 whitespace-pre-line">{selectedHotel.region?.description?.[i18n.language]}</p>
+              <p className="text-gray-700 whitespace-pre-line">{selectedHotel.region?.description?.[getAppLang(getAppLang(i18n.language))]}</p>
             </div>
 
             {/* Погода */}

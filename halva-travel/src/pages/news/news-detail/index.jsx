@@ -44,7 +44,7 @@ const SkeletonCard = () => (
 const NewsDetails = () => {
   const { slug } = useParams();
   const { i18n } = useTranslation();
-  const currentLang = i18n.language || "ru";
+  const currentLang = getAppLang(i18n.language);
 
   const [news, setNews] = useState(null);
   const [recent, setRecent] = useState([]);

@@ -5,10 +5,11 @@ import { Link } from "react-router-dom";
 import { Form, Input, Button, message } from "antd";
 import axios from "../../api/axiosConfig";
 import { BellRing, PhoneCall } from "lucide-react";
+import getAppLang from "../../utils/getAppLang";
 
 const TourCard = ({ tour }) => {
   const { t, i18n } = useTranslation();
-  const lang = i18n.language || "ru";
+  const lang = getAppLang(i18n.language);
   const [hovered, setHovered] = useState(false);
   const [isBookingVisible, setIsBookingVisible] = useState(false);
   const [form] = Form.useForm();

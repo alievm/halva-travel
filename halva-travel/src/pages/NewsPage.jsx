@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "../api/axiosConfig";
 import { motion } from "framer-motion";
 import PageLoader from "../components/Loader";
+import getAppLang from "../utils/getAppLang";
 
 const baseURL = import.meta.env.VITE_API_BASE_URL;
 
@@ -45,7 +46,7 @@ const NewsCard = ({ item, lang }) => {
 
 const NewsPage = () => {
   const { i18n, t } = useTranslation();
-  const lang = i18n.language || "ru";
+  const lang = getAppLang(i18n.language);
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
 

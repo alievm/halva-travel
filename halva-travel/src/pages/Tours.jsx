@@ -5,12 +5,13 @@ import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import { Select, Input, Button } from "antd";
 import PageLoader from "../components/Loader";
+import getAppLang from "../utils/getAppLang";
 
 const { Option } = Select;
 
 const Tours = () => {
   const { i18n, t } = useTranslation();
-  const lang = i18n.language || "en";
+  const lang = getAppLang(i18n.language);
 
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(true);

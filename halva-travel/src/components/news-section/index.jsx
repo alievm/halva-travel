@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import axios from "../../api/axiosConfig";
 import { Link } from "react-router-dom";
+import getAppLang from "../../utils/getAppLang";
 
 const fadeIn = (direction = "up", delay = 0) => ({
   hidden: {
@@ -25,7 +26,7 @@ const fadeIn = (direction = "up", delay = 0) => ({
 
 const NewsSection = () => {
   const { i18n } = useTranslation();
-  const currentLang = i18n.language || "ru";
+  const currentLang = getAppLang(i18n.language);
 
   const [news, setNews] = useState([]);
 

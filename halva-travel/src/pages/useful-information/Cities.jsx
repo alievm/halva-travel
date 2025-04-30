@@ -3,13 +3,14 @@ import axios from "../../api/axiosConfig";
 import { useTranslation } from "react-i18next";
 import { AnimatePresence, motion } from "framer-motion";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import getAppLang from "../../utils/getAppLang";
 
 const baseURL = import.meta.env.VITE_API_BASE_URL;
 
 
 const CitiesStackScroll = () => {
   const { i18n } = useTranslation();
-  const lang = i18n.language || "en";
+  const lang = getAppLang(i18n.language);
   const [regions, setRegions] = useState([]);
   const [index, setIndex] = useState(0);
   const [activeImageIndex, setActiveImageIndex] = useState(0);

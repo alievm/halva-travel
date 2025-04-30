@@ -26,6 +26,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import PageLoader from "../../components/Loader";
 import TourCard from "../../components/tour-card";
+import getAppLang from "../../utils/getAppLang";
 
 const baseURL = import.meta.env.VITE_API_BASE_URL;
 
@@ -181,9 +182,9 @@ const Tour = () => {
         <div className="md:col-span-2">
         <div className="text-gray-500 text-xs flex items-center gap-1 mb-1 subpixel-antialiased">
           <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.8334 5.66683C12.8334 9.72673 8.50002 14.6668 8.50002 14.6668C8.50002 14.6668 4.16669 9.72673 4.16669 5.66683C4.16669 3.2736 6.10679 1.3335 8.50002 1.3335C10.8933 1.3335 12.8334 3.2736 12.8334 5.66683Z" stroke="#535353" stroke-width="0.5" stroke-linejoin="round"></path><ellipse cx="8.5" cy="5.66699" rx="2" ry="2" stroke="#535353" stroke-width="0.5" stroke-linejoin="round"></ellipse></svg>
-            <span>{tour.route[i18n.language]}</span>
+            <span>{tour.route[getAppLang(i18n.language)]}</span>
           </div>
-          <h1 className="text-2xl font-bold mb-1">{tour.title[i18n.language]}</h1>
+          <h1 className="text-2xl font-bold mb-1">{tour.title[getAppLang(i18n.language)]}</h1>
         <div className="flex w-full mb-3 justify-between items-center">
           <div className="flex items-center gap-2">
           {tour.includes?.length > 0 && (
@@ -333,17 +334,17 @@ const Tour = () => {
 </h3>
 
 <div style={{ marginTop: "8px" }} className="text-gray-700 text-sm">
-  {tour.shortDescription[i18n.language]}
+  {tour.shortDescription[getAppLang(i18n.language)]}
 </div>
 
 <div style={{ marginTop: "24px" }}>
-  {tour.extras?.[i18n.language] && (
+  {tour.extras?.[getAppLang(i18n.language)] && (
     <>
       <h3 style={{ marginTop: "16px" }} className="text-[16px] font-semibold">
         {t("extrasTitle")}:
       </h3>
       <p style={{ marginTop: "8px" }} className="text-sm text-gray-700">
-        {tour.extras[i18n.language]}
+        {tour.extras[getAppLang(i18n.language)]}
       </p>
     </>
   )}
@@ -381,7 +382,7 @@ const Tour = () => {
         </div>
         <div className="flex flex-col text-gray-600">
           <span className="text-[12px]">{t("dropdown.hotels")}</span>
-          <p className="text-[14px]">{tour.hotel?.name[i18n.language]}</p>
+          <p className="text-[14px]">{tour.hotel?.name[getAppLang(i18n.language)]}</p>
         </div>
       </div>
 
