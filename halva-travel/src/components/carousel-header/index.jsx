@@ -3,11 +3,12 @@ import { Carousel } from "react-responsive-carousel";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import axios from "../../api/axiosConfig";
+import getAppLang from "../../utils/getAppLang";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const CarouselHeader = () => {
   const { i18n } = useTranslation();
-  const lang = i18n.language || "ru";
+  const lang = getAppLang(i18n.language);
   const [banners, setBanners] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
 
